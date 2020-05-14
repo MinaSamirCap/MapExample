@@ -49,6 +49,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(homeLatLng, zoomLevel))
         map.addMarker(MarkerOptions().position(homeLatLng))
 
+        val overlaySize = 100f
+        val androidOverlay =
+            GroundOverlayOptions().image(BitmapDescriptorFactory.fromResource(R.drawable.android))
+                .position(homeLatLng, overlaySize)
+
+        map.addGroundOverlay(androidOverlay)
+
         setOnLongClick(map)
         setPoiClick(map)
         setMapStyle(map)
