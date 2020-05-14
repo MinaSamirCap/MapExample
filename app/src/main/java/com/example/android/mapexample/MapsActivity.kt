@@ -10,6 +10,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PointOfInterest
 import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -47,6 +48,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         map.addMarker(MarkerOptions().position(homeLatLng))
 
         setOnLongClick(map)
+        setPoiClick(map)
     }
 
     private fun setOnLongClick(map: GoogleMap) {
@@ -65,6 +67,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     .title(getString(R.string.dropped_pin))
                     .snippet(snippet)
             )
+        }
+    }
+
+    private fun setPoiClick(map: GoogleMap) {
+        map.setOnPoiClickListener { poi: PointOfInterest ->
+            val poiMarker = map.addMarker(
+                MarkerOptions()
+                    .position(poi.latLng)
+                    .title(poi.name)
+            )
+            poiMarker.showInfoWindow()
         }
     }
 
